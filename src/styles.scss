@@ -1,7 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap");
 
-html, body {
-  font-family: 'Inter', sans-serif;
+html,
+body {
+  font-family: "Inter", sans-serif;
   margin: 0;
 }
 
@@ -10,17 +11,17 @@ h1 {
 }
 
 :root {
-  --shade-accent: #007C7C;
+  --shade-accent: #007c7c;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --shade-01: #F2F2F2;
-    --shade-02: #B0B0B0;
+    --shade-01: #f2f2f2;
+    --shade-02: #b0b0b0;
     --shade-03: #383838;
     --shade-04: #222222;
     --shade-05: #151515;
-    --shade-red: #E75B4F;
+    --shade-red: #e75b4f;
   }
 }
 
@@ -28,10 +29,10 @@ h1 {
   :root {
     --shade-01: #151515;
     --shade-02: #515151;
-    --shade-03: #D1D1D1;
-    --shade-04: #EEEEEE;
-    --shade-05: #FFFFFF;
-    --shade-red: #D62617;
+    --shade-03: #d1d1d1;
+    --shade-04: #eeeeee;
+    --shade-05: #ffffff;
+    --shade-red: #d62617;
   }
 }
 
@@ -79,7 +80,8 @@ h1 {
 
   .logo-container {
     flex: 1;
-    
+    margin-bottom: 20px;
+
     .logo-text {
       font-weight: 900;
       line-height: 20px;
@@ -170,7 +172,7 @@ h1 {
 
   .back-btn-wrapper {
     flex: 1;
-    
+
     .back-btn {
       cursor: pointer;
       padding: 20px;
@@ -178,7 +180,7 @@ h1 {
       margin-left: -20px;
       border: none;
       background: none;
-      color: currentColor
+      color: currentColor;
     }
   }
 
@@ -212,13 +214,14 @@ h1 {
   margin-inline: -20px;
   padding-inline: 20px;
 
-  &::before, &::after {
+  &::before,
+  &::after {
     // content: "";
     position: absolute;
     width: 20px;
     height: 100%;
     left: 10px;
-    background: linear-gradient(to right, var(--shade-05), rgba(0,0,0,0));
+    background: linear-gradient(to right, var(--shade-05), rgba(0, 0, 0, 0));
   }
 
   &::after {
@@ -233,17 +236,19 @@ h1 {
 
     &.skeleton {
       @keyframes skeleton-loader {
-        0%, 5% {
+        0%,
+        5% {
           right: -200%;
         }
-        95%, 100% {
+        95%,
+        100% {
           right: 200%;
         }
       }
 
       isolation: isolate;
 
-      .kanban-item{
+      .kanban-item {
         position: relative;
         pointer-events: none;
         background: transparent;
@@ -257,7 +262,12 @@ h1 {
           height: 100%;
           top: 0;
           right: -200%;
-          background: linear-gradient(20deg, rgba(0,0,0,0) 30%, var(--shade-04), rgba(0,0,0,0) 70%);
+          background: linear-gradient(
+            20deg,
+            rgba(0, 0, 0, 0) 30%,
+            var(--shade-04),
+            rgba(0, 0, 0, 0) 70%
+          );
           // mix-blend-mode: color-dodge;
           animation: skeleton-loader 1s ease-in-out infinite;
         }
