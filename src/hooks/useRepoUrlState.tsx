@@ -3,13 +3,13 @@ import {
   FormEventHandler,
   useCallback,
   useEffect,
-  useState
+  useState,
 } from "react";
 import { useNavigate } from "react-router-dom";
 import { parseUrlContent } from "../utils";
 
 const DEFAULT = {
-  ERROR_MESSAGE: "Oops! Something went wrong. Try again."
+  ERROR_MESSAGE: "Oops! Something went wrong. Try again.",
 };
 
 export const useRepoUrlState = () => {
@@ -34,11 +34,17 @@ export const useRepoUrlState = () => {
     if (value === false) return setIsError(false);
 
     setIsError(true);
-    setErrorMessage((value as string) ?? DEFAULT.ERROR_MESSAGE);
+    if (typeof value === "string") return setErrorMessage(value);
+    setErrorMessage(DEFAULT.ERROR_MESSAGE);
   };
 
   const parseError = (err: unknown) => {
-    return (err as { message?: string })?.message;
+    if (typeof err === "object") {
+      const newErr = { message: "", ...err };
+      return newErr?.message;
+    }
+
+    return undefined;
   };
 
   const getAsyncRepo = useCallback(async () => {
@@ -72,7 +78,7 @@ export const useRepoUrlState = () => {
   );
 
   const inputOnChange: ChangeEventHandler = (e) =>
-    setUrlValue((e.target as HTMLInputElement).value);
+    e.target instanceof HTMLInputElement && setUrlValue(e.target.value);
 
   useEffect(() => {
     const { full_name, stargazers_count, name, description } = repoData;
@@ -92,7 +98,7 @@ export const useRepoUrlState = () => {
         // validate response
         if (!Array.isArray(response)) throw response;
         navigate(`/${full_name}`, {
-          state: { response, stargazers_count, name, description }
+          state: { response, stargazers_count, name, description },
         });
       } catch (err) {
         handleError(parseError(err));
@@ -112,6 +118,6 @@ export const useRepoUrlState = () => {
     submit,
     inputOnChange,
     urlValue,
-    errorMessage
+    errorMessage,
   };
 };

@@ -1,7 +1,7 @@
 {
-  "name": "react-typescript",
+  "name": "repub",
   "version": "1.0.0",
-  "description": "React and TypeScript example starter project",
+  "description": "A proof of concept application that shows an overview of the activebranches on a GitHub repository.",
   "keywords": [
     "typescript",
     "react",
@@ -19,7 +19,7 @@
   "devDependencies": {
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
-    "typescript": "4.4.2"
+    "typescript": "^5.1.6"
   },
   "scripts": {
     "start": "react-scripts start",
