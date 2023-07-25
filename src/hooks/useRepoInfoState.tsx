@@ -67,7 +67,7 @@ export const useRepoInfoState = () => {
     }
   };
 
-  const handleGoBack = () => navigate("/");
+  const handleGoBack = () => navigate(-1);
 
   const numberOfStars = millify(stargazers_count, {
     lowercase: true,
