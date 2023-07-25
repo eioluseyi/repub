@@ -12,8 +12,17 @@ export const useRepoInfoState = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { response, stargazers_count, name, description } =
-    location.state || {};
+  const getState = () => {
+    const localSorageString = localStorage.getItem("repub-state");
+    const localState = JSON.parse(localSorageString || "{}");
+    const state = location.state || localState;
+
+    localStorage.setItem("repub-state", JSON.stringify(state));
+
+    return state;
+  };
+
+  const { response, stargazers_count, name, description } = getState();
 
   const moveItem: MoveItemType = (name, currentLevel, newLevel) => {
     let item: ListItemType | undefined = { name: "" };
@@ -62,19 +71,19 @@ export const useRepoInfoState = () => {
 
   const numberOfStars = millify(stargazers_count, {
     lowercase: true,
-    precision: 1
+    precision: 1,
   });
 
   const skeletonList = [
     { title: "In progress" },
     { title: "Review" },
-    { title: "Ready to merge" }
+    { title: "Ready to merge" },
   ];
 
   const kanbanList = [
     { title: "In progress", dataList: inProgressList },
     { title: "Review", dataList: reviewList },
-    { title: "Ready to merge", dataList: mergeList }
+    { title: "Ready to merge", dataList: mergeList },
   ];
 
   useEffect(() => {
@@ -92,6 +101,6 @@ export const useRepoInfoState = () => {
     handleGoBack,
     numberOfStars,
     skeletonList,
-    kanbanList
+    kanbanList,
   };
 };
