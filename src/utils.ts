@@ -8,10 +8,13 @@ const prependProtocol = (txt: string) =>
     ? `https://${txt}`
     : txt;
 
-export const parseUrlContent: (
-  url: string
-) => { targetUrl: string; isValid: boolean } = (url) => {
+export const parseUrlContent: (url: string) => {
+  targetUrl: string;
+  isValid: boolean;
+  errMsg: string;
+} = (url) => {
   let isValid = false,
+    errMsg = "",
     testUrl: URL | null = null,
     path = "";
 
@@ -25,10 +28,18 @@ export const parseUrlContent: (
     path = removeTrailingSubString(path, ".git");
 
     isValid = Boolean(path);
-  } catch {}
-
+    if (path.split("/").length < 2) isValid = false;
+    if (testUrl.hostname !== "github.com") {
+      isValid = false;
+      errMsg = "Only github repos, please";
+    }
+  } catch {
+    // Set error message
+    errMsg = "Invalid url";
+  }
   return {
     targetUrl: `https://api.github.com/repos/${path}`,
-    isValid
+    isValid,
+    errMsg,
   };
 };

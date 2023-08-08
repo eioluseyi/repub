@@ -28,7 +28,7 @@ export const useRepoUrlState = () => {
 
   const buttonLabel = isLoading ? "Loading..." : "Submit";
   const errorClass = `error-message ${isError ? "error" : ""}`;
-  const { targetUrl, isValid } = parseUrlContent(urlValue);
+  const { targetUrl, isValid, errMsg } = parseUrlContent(urlValue);
 
   const handleError = (value?: string | boolean) => {
     if (value === false) return setIsError(false);
@@ -70,7 +70,7 @@ export const useRepoUrlState = () => {
       handleError(false);
 
       if (!isValid) setIsLoading(false);
-      if (!isValid) return handleError("Invalid input");
+      if (!isValid) return handleError(errMsg || "Invalid input");
 
       getAsyncRepo();
     },
